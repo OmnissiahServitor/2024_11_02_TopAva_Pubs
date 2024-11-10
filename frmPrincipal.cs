@@ -72,11 +72,27 @@ namespace _2024_11_02_TopAva_Pubs
 
             } // end if ds != null
 
+            // Codigo para agregar los nombres de las columnas de las tablas para que el usuario busque de acuerdo a su seleccion
             ds = dt.consulta("SELECT ORDINAL_POSITION, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'authors'");
 
             cmbAuthorSearchBy.DataSource = ds.Tables[0];
             cmbAuthorSearchBy.DisplayMember = "COLUMN_NAME";
             cmbAuthorSearchBy.ValueMember = "ORDINAL_POSITION";
+
+            ds = dt.consulta("SELECT ORDINAL_POSITION, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'publishers'");
+            cmbPublishers_SearchBy.DataSource = ds.Tables[0];
+            cmbPublishers_SearchBy.DisplayMember = "COLUMN_NAME";
+            cmbPublishers_SearchBy.ValueMember = "ORDINAL_POSITION";
+
+            ds = dt.consulta("SELECT ORDINAL_POSITION, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'titles'");
+            cmbTitles_SearchBy.DataSource = ds.Tables[0];
+            cmbTitles_SearchBy.DisplayMember = "COLUMN_NAME";
+            cmbTitles_SearchBy.ValueMember = "ORDINAL_POSITION";
+
+            ds = dt.consulta("SELECT pub_id FROM publishers");
+            cmbTitles_publisherID.DataSource = ds.Tables[0];
+            cmbTitles_publisherID.DisplayMember = "pub_id";
+
         } // end frmPrincipal_Load() 
 
         private void btnAuthorGuardar_Click(object sender, EventArgs e)
@@ -240,7 +256,7 @@ namespace _2024_11_02_TopAva_Pubs
 
         private void btnAuthorModificar_Click(object sender, EventArgs e)
         {
-            string id = mskAuthorID.Text;
+            string id = mskAuthorID.Text; // otro cambio
 
             try
             {
@@ -313,7 +329,7 @@ namespace _2024_11_02_TopAva_Pubs
         {
             if (MessageBox.Show("Los datos son correctos?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                
+
 
                 Datos datos = new Datos();
                 bool j = datos.ejecutarABC("INSERT INTO publishers( pub_id, pub_name, city, state, country) " +
@@ -379,12 +395,176 @@ namespace _2024_11_02_TopAva_Pubs
 
         private void btnPublishers_Buscar_Click(object sender, EventArgs e)
         {
+            Datos dt = new Datos();
 
+            ds = dt.consulta("SELECT * FROM publishers WHERE " + cmbPublishers_SearchBy.Text + " = '" + txtPublishers_Buscar.Text + "'");
+
+            if (ds != null)
+            {
+                dgvPublishers.DataSource = ds.Tables[0];
+            }
         } // end btnPublishers_Buscar_Click
 
         private void btnPublishers_Resetear_Click(object sender, EventArgs e)
         {
-
+            actualizarTabla("publishers");
         } // end btnPublishers_Resetear_Click
+
+        private void dgvPublishers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow filaSeleccionada = dgvPublishers.Rows[e.RowIndex];
+
+
+            mskPublishers_ID.Text = filaSeleccionada.Cells[0].Value.ToString();
+            txtPublisher_name.Text = filaSeleccionada.Cells[1].Value.ToString();
+            txtPublisher_City.Text = filaSeleccionada.Cells[2].Value.ToString();
+            mskPublisher_State.Text = filaSeleccionada.Cells[3].Value.ToString();
+            txtPublisher_Country.Text = filaSeleccionada.Cells[4].Value.ToString();
+
+        }
+
+        private void btnTitles_Modificar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Datos dt = new Datos();
+                bool j = dt.ejecutarABC("UPDATE titles SET " +
+                    "title = '" + txtTitle_name.Text + "', " +
+                    "type = '" + txtTitle_Type.Text + "', " +
+                    "pub_id = '" + cmbTitles_publisherID.Text + "', " +
+                    "price = '" + txtTitle_Price.Text + "', " +
+                    "advance = '" + txtTitle_Advance.Text + "', " +
+                    "royalty = '" + txtTitle_Royalty.Text + "', " +
+                    "ytd_sales = '" + txtTitle_Sales.Text + "', " +
+                    "notes = '" + rtxtTitles_Notes.Text + "', " +
+                    "pubdate = '" + dtpTitles_Date.Text + 
+
+                    "' WHERE title_id = '" + mskTitle_ID.Text + "'");
+
+                if (j)
+                {
+                    actualizarTabla("titles");
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo hacer la modificacion a la tabla", "Sistema - Titles");
+                }
+
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message, "Sistema - Titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnTitles_Guardar_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Los datos son correctos?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+
+
+                Datos datos = new Datos();
+                bool j = datos.ejecutarABC("INSERT INTO titles( title_id, title, type, pub_id, price, advance, royalty, ytd_sales, notes, pubdate) " +
+                    "VALUES ('" + mskTitle_ID.Text + "','" +
+                    txtTitle_name.Text + "','" +
+                    txtTitle_Type.Text + "','" +
+                    cmbTitles_publisherID.Text + "','" +
+                    txtTitle_Price.Text + "','" +
+                    txtTitle_Advance.Text + "','" +
+                    txtTitle_Royalty.Text + "','" +
+                    txtTitle_Sales.Text + "','" +
+                    rtxtTitles_Notes.Text + "','" +
+                    dtpTitles_Date.Text +
+                    "')");
+
+                if (j == true)
+                {
+                    MessageBox.Show("Datos Agregados Correctamente", "Sistema Titles", MessageBoxButtons.OK);
+                    actualizarTabla("titles");
+                }
+                else
+                {
+                    MessageBox.Show("Error", "Sistema tabla Titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnTitles_Limpiar_Click(object sender, EventArgs e)
+        {
+            mskTitle_ID.Text = "";
+            txtTitle_name.Text = "";
+            txtTitle_Type.Text = "";
+            cmbTitles_publisherID.Text = "";
+            txtTitle_Price.Text = "";
+
+            txtTitle_Advance.Text = "";
+            txtTitle_Royalty.Text = "";
+            txtTitle_Sales.Text = "";
+            rtxtTitles_Notes.Text = "";
+            dtpTitles_Date.Text = "";
+        }
+
+        private void btnTitles_Eliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Seguro que deseas borrar el registro ID: " + mskTitle_ID.Text + "?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    Datos datos = new Datos();
+                    bool j = datos.ejecutarABC("DELETE FROM titles WHERE title_id = '" + mskTitle_ID.Text + "'");
+
+                    if (j == true)
+                    {
+                        MessageBox.Show("ID: " + mskTitle_ID.Text + " borrado del registro", "Sistema", MessageBoxButtons.OK);
+                        actualizarTabla("titles");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error tabla Publishers", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvTitles_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            DataGridViewRow filaSeleccionada = dgvTitles.Rows[e.RowIndex];
+
+
+            mskTitle_ID.Text = filaSeleccionada.Cells[0].Value.ToString();
+            txtTitle_name.Text = filaSeleccionada.Cells[1].Value.ToString();
+            txtTitle_Type.Text = filaSeleccionada.Cells[2].Value.ToString();
+            cmbTitles_publisherID.Text = filaSeleccionada.Cells[3].Value.ToString();
+            txtTitle_Price.Text = filaSeleccionada.Cells[4].Value.ToString();
+
+            txtTitle_Advance.Text = filaSeleccionada.Cells[5].Value.ToString();
+            txtTitle_Royalty.Text = filaSeleccionada.Cells[6].Value.ToString();
+            txtTitle_Sales.Text = filaSeleccionada.Cells[7].Value.ToString();
+            rtxtTitles_Notes.Text = filaSeleccionada.Cells[8].Value.ToString();
+            dtpTitles_Date.Text = filaSeleccionada.Cells[9].Value.ToString();
+        }
+
+        private void btnTitles_Buscar_Click(object sender, EventArgs e)
+        {
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT * FROM titles WHERE " + cmbTitles_SearchBy.Text + " = '" + txtTitles_Buscar.Text + "'");
+
+            if (ds != null)
+            {
+                dgvTitles.DataSource = ds.Tables[0];
+            }
+        }
+
+        private void btnTitles_Resetear_Click(object sender, EventArgs e)
+        {
+            actualizarTabla("titles");
+        }
     } // end class frmPrincipal
 } // end namespace

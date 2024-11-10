@@ -81,9 +81,9 @@
             panel13 = new Panel();
             btnPublishers_Resetear = new Button();
             label18 = new Label();
-            textBox1 = new TextBox();
+            txtPublishers_Buscar = new TextBox();
             label19 = new Label();
-            comboBox1 = new ComboBox();
+            cmbPublishers_SearchBy = new ComboBox();
             btnPublishers_Buscar = new Button();
             panel2 = new Panel();
             txtPublisher_Country = new TextBox();
@@ -111,6 +111,7 @@
             cmbTitles_SearchBy = new ComboBox();
             label21 = new Label();
             panel3 = new Panel();
+            cmbTitles_publisherID = new ComboBox();
             btnTitles_Eliminar = new Button();
             label32 = new Label();
             btnTitles_Modificar = new Button();
@@ -127,7 +128,6 @@
             label28 = new Label();
             txtTitle_Price = new TextBox();
             label27 = new Label();
-            maskedTextBox1 = new MaskedTextBox();
             label26 = new Label();
             txtTitle_Type = new TextBox();
             label25 = new Label();
@@ -664,9 +664,9 @@
             panel13.BackColor = Color.FromArgb(255, 224, 192);
             panel13.Controls.Add(btnPublishers_Resetear);
             panel13.Controls.Add(label18);
-            panel13.Controls.Add(textBox1);
+            panel13.Controls.Add(txtPublishers_Buscar);
             panel13.Controls.Add(label19);
-            panel13.Controls.Add(comboBox1);
+            panel13.Controls.Add(cmbPublishers_SearchBy);
             panel13.Controls.Add(btnPublishers_Buscar);
             panel13.Location = new Point(462, 24);
             panel13.Name = "panel13";
@@ -694,13 +694,13 @@
             label18.TabIndex = 10;
             label18.Text = "Lista de Publishers";
             // 
-            // textBox1
+            // txtPublishers_Buscar
             // 
-            textBox1.Font = new Font("Segoe UI", 12F);
-            textBox1.Location = new Point(739, 90);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(212, 29);
-            textBox1.TabIndex = 11;
+            txtPublishers_Buscar.Font = new Font("Segoe UI", 12F);
+            txtPublishers_Buscar.Location = new Point(739, 90);
+            txtPublishers_Buscar.Name = "txtPublishers_Buscar";
+            txtPublishers_Buscar.Size = new Size(212, 29);
+            txtPublishers_Buscar.TabIndex = 11;
             // 
             // label19
             // 
@@ -712,14 +712,14 @@
             label19.TabIndex = 7;
             label19.Text = "Buscar por:";
             // 
-            // comboBox1
+            // cmbPublishers_SearchBy
             // 
-            comboBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(540, 91);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(193, 29);
-            comboBox1.TabIndex = 8;
+            cmbPublishers_SearchBy.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbPublishers_SearchBy.FormattingEnabled = true;
+            cmbPublishers_SearchBy.Location = new Point(540, 91);
+            cmbPublishers_SearchBy.Name = "cmbPublishers_SearchBy";
+            cmbPublishers_SearchBy.Size = new Size(193, 29);
+            cmbPublishers_SearchBy.TabIndex = 8;
             // 
             // btnPublishers_Buscar
             // 
@@ -775,7 +775,7 @@
             // mskPublisher_State
             // 
             mskPublisher_State.Location = new Point(31, 374);
-            mskPublisher_State.Mask = "99999";
+            mskPublisher_State.Mask = "AA";
             mskPublisher_State.Name = "mskPublisher_State";
             mskPublisher_State.Size = new Size(332, 23);
             mskPublisher_State.TabIndex = 30;
@@ -824,7 +824,7 @@
             // mskPublishers_ID
             // 
             mskPublishers_ID.Location = new Point(31, 163);
-            mskPublishers_ID.Mask = "99999";
+            mskPublishers_ID.Mask = "9999";
             mskPublishers_ID.Name = "mskPublishers_ID";
             mskPublishers_ID.Size = new Size(332, 23);
             mskPublishers_ID.TabIndex = 5;
@@ -901,6 +901,7 @@
             dgvPublishers.Name = "dgvPublishers";
             dgvPublishers.Size = new Size(1180, 581);
             dgvPublishers.TabIndex = 4;
+            dgvPublishers.CellContentClick += dgvPublishers_CellContentClick;
             // 
             // tabTitles
             // 
@@ -938,6 +939,7 @@
             btnTitles_Resetear.TabIndex = 18;
             btnTitles_Resetear.Text = "Resetear";
             btnTitles_Resetear.UseVisualStyleBackColor = true;
+            btnTitles_Resetear.Click += btnTitles_Resetear_Click;
             // 
             // label20
             // 
@@ -958,6 +960,7 @@
             btnTitles_Buscar.TabIndex = 15;
             btnTitles_Buscar.Text = "Buscar";
             btnTitles_Buscar.UseVisualStyleBackColor = true;
+            btnTitles_Buscar.Click += btnTitles_Buscar_Click;
             // 
             // txtTitles_Buscar
             // 
@@ -989,6 +992,7 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(192, 255, 255);
+            panel3.Controls.Add(cmbTitles_publisherID);
             panel3.Controls.Add(btnTitles_Eliminar);
             panel3.Controls.Add(label32);
             panel3.Controls.Add(btnTitles_Modificar);
@@ -1005,7 +1009,6 @@
             panel3.Controls.Add(label28);
             panel3.Controls.Add(txtTitle_Price);
             panel3.Controls.Add(label27);
-            panel3.Controls.Add(maskedTextBox1);
             panel3.Controls.Add(label26);
             panel3.Controls.Add(txtTitle_Type);
             panel3.Controls.Add(label25);
@@ -1019,6 +1022,14 @@
             panel3.Size = new Size(414, 753);
             panel3.TabIndex = 5;
             // 
+            // cmbTitles_publisherID
+            // 
+            cmbTitles_publisherID.FormattingEnabled = true;
+            cmbTitles_publisherID.Location = new Point(32, 207);
+            cmbTitles_publisherID.Name = "cmbTitles_publisherID";
+            cmbTitles_publisherID.Size = new Size(332, 23);
+            cmbTitles_publisherID.TabIndex = 29;
+            // 
             // btnTitles_Eliminar
             // 
             btnTitles_Eliminar.BackColor = Color.Maroon;
@@ -1029,6 +1040,7 @@
             btnTitles_Eliminar.TabIndex = 28;
             btnTitles_Eliminar.Text = "Eliminar";
             btnTitles_Eliminar.UseVisualStyleBackColor = false;
+            btnTitles_Eliminar.Click += btnTitles_Eliminar_Click;
             // 
             // label32
             // 
@@ -1048,6 +1060,7 @@
             btnTitles_Modificar.TabIndex = 25;
             btnTitles_Modificar.Text = "Modificar";
             btnTitles_Modificar.UseVisualStyleBackColor = true;
+            btnTitles_Modificar.Click += btnTitles_Modificar_Click;
             // 
             // btnTitles_Guardar
             // 
@@ -1059,6 +1072,7 @@
             btnTitles_Guardar.TabIndex = 26;
             btnTitles_Guardar.Text = "Guardar";
             btnTitles_Guardar.UseVisualStyleBackColor = false;
+            btnTitles_Guardar.Click += btnTitles_Guardar_Click;
             // 
             // dtpTitles_Date
             // 
@@ -1079,6 +1093,7 @@
             btnTitles_Limpiar.TabIndex = 27;
             btnTitles_Limpiar.Text = "Limpiar";
             btnTitles_Limpiar.UseVisualStyleBackColor = false;
+            btnTitles_Limpiar.Click += btnTitles_Limpiar_Click;
             // 
             // rtxtTitles_Notes
             // 
@@ -1161,14 +1176,6 @@
             label27.TabIndex = 12;
             label27.Text = "Price:";
             // 
-            // maskedTextBox1
-            // 
-            maskedTextBox1.Location = new Point(32, 207);
-            maskedTextBox1.Mask = "9999";
-            maskedTextBox1.Name = "maskedTextBox1";
-            maskedTextBox1.Size = new Size(332, 23);
-            maskedTextBox1.TabIndex = 11;
-            // 
             // label26
             // 
             label26.AutoSize = true;
@@ -1184,7 +1191,6 @@
             txtTitle_Type.Name = "txtTitle_Type";
             txtTitle_Type.Size = new Size(332, 23);
             txtTitle_Type.TabIndex = 9;
-            
             // 
             // label25
             // 
@@ -1201,7 +1207,6 @@
             txtTitle_name.Name = "txtTitle_name";
             txtTitle_name.Size = new Size(332, 23);
             txtTitle_name.TabIndex = 7;
-            
             // 
             // label24
             // 
@@ -1215,7 +1220,7 @@
             // mskTitle_ID
             // 
             mskTitle_ID.Location = new Point(32, 71);
-            mskTitle_ID.Mask = "ZZ9999";
+            mskTitle_ID.Mask = "LL0000";
             mskTitle_ID.Name = "mskTitle_ID";
             mskTitle_ID.Size = new Size(332, 23);
             mskTitle_ID.TabIndex = 5;
@@ -1245,6 +1250,7 @@
             dgvTitles.Name = "dgvTitles";
             dgvTitles.Size = new Size(1180, 581);
             dgvTitles.TabIndex = 4;
+            dgvTitles.CellContentClick += dgvTitles_CellContentClick;
             // 
             // tabTitleAuthor
             // 
@@ -1707,9 +1713,9 @@
         private Label label14;
         private Button btnPublishers_Resetear;
         private Label label18;
-        private TextBox textBox1;
+        private TextBox txtPublishers_Buscar;
         private Label label19;
-        private ComboBox comboBox1;
+        private ComboBox cmbPublishers_SearchBy;
         private Button btnPublishers_Buscar;
         private TextBox txtPublisher_Country;
         private Label label17;
@@ -1733,7 +1739,6 @@
         private Label label24;
         private TextBox txtTitle_Price;
         private Label label27;
-        private MaskedTextBox maskedTextBox1;
         private Label label26;
         private Label label31;
         private TextBox txtTitle_Sales;
@@ -1749,5 +1754,6 @@
         private Button btnTitles_Modificar;
         private Button btnTitles_Guardar;
         private Button btnTitles_Limpiar;
+        private ComboBox cmbTitles_publisherID;
     }
 }
