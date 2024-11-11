@@ -11,7 +11,8 @@ namespace _2024_11_02_TopAva_Pubs
 
         // Atributos
         DataSet ds;
-
+        
+        
         public frmPrincipal()
         {
 
@@ -27,7 +28,13 @@ namespace _2024_11_02_TopAva_Pubs
             InitializeComponent();
             this.CenterToScreen();
             labUsuario.Text = "Usuario: " + usuario;
+            NUDJobsMinLvl.Minimum = 0;
+            NUDJobsMinLvl.Maximum = 1000;
+            NUDJobsMaxLvl.Minimum = 0;
+            NUDJobsMaxLvl.Maximum = 1000;
+
         }
+
 
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
@@ -437,7 +444,7 @@ namespace _2024_11_02_TopAva_Pubs
                     "royalty = '" + txtTitle_Royalty.Text + "', " +
                     "ytd_sales = '" + txtTitle_Sales.Text + "', " +
                     "notes = '" + rtxtTitles_Notes.Text + "', " +
-                    "pubdate = '" + dtpTitles_Date.Text + 
+                    "pubdate = '" + dtpTitles_Date.Text +
 
                     "' WHERE title_id = '" + mskTitle_ID.Text + "'");
 
@@ -565,6 +572,136 @@ namespace _2024_11_02_TopAva_Pubs
         private void btnTitles_Resetear_Click(object sender, EventArgs e)
         {
             actualizarTabla("titles");
+        }
+
+        private void btnJobsGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Datos dt = new Datos();
+
+                    string consulta = "INSERT INTO jobs(job_desc, min_lvl, max_lvl) VALUES('" + txtJobsJobDesc.Text + "', " + NUDJobsMinLvl.Value + ", " + NUDJobsMaxLvl.Value + ")";
+                    bool c = dt.ejecutarABC(consulta);
+
+                    if (c == true)
+                    {
+                        MessageBox.Show("Registro realizado de manera exitosa", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ds = dt.consulta("SELECT * FROM jobs ");
+                        dgvJobs.DataSource = ds.Tables[0];
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ha ocurrido un error", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnJobsLimpiar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnJobsEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Datos dt = new Datos();
+                //Verificar si hay una fila seleccionada
+                if (dgvJobs.Rows.Count > 0)
+                {
+                    //Obtener el id del elemento seleccionado para eliminar por ID
+                    int id = Convert.ToInt32(dgvJobs.SelectedRows[0].Cells["job_id"].Value);
+                    //Eliminar de la BD mediante id
+                    bool c = dt.ejecutarABC("DELETE FROM jobs WHERE job_id = " + id);
+                    if (c == true)
+                    {
+                        MessageBox.Show("Registro eliminado exitosamente", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        //Eliminar del DataGridView
+                        dgvJobs.Rows.RemoveAt(dgvJobs.SelectedRows[0].Index);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, selecciona una fila para eliminar", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Seleccione todo el renglon de celdas", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnJobsModificar_Click(object sender, EventArgs e)
+        {
+            Datos dt = new Datos();
+
+            
+                    int j_id = Convert.ToInt32(dgvJobs.SelectedRows[0].Cells["job_id"].Value);
+                    string job_desc = txtJobsJobDesc.Text;
+                    int min_lvl = Convert.ToInt32(NUDJobsMinLvl.Value);
+                    int max_lvl = Convert.ToInt32(NUDJobsMaxLvl.Value);
+
+
+                try
+                {
+                    bool c = dt.ejecutarABC("UPDATE jobs set job_desc = '" + job_desc + "', min_lvl = " + min_lvl + ", max_lvl = " + max_lvl + "WHERE job_id like " + j_id);
+
+                    if (NUDJobsMinLvl.Value > NUDJobsMaxLvl.Value)
+                    {
+
+                        MessageBox.Show("El nivel minimo no puede ser mayor al maximo", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        NUDJobsMinLvl.Value = 0;
+                        NUDJobsMaxLvl.Value = 0;
+                    }
+                    else
+                    {
+
+                        if (c == true)
+                        {
+                            MessageBox.Show("Actualizacion realizada de manera exitosa", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ds = dt.consulta("SELECT * FROM jobs ");
+                            dgvJobs.DataSource = ds.Tables[0];
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            
+ 
+            
+        }
+
+        private void dgvJobs_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvJobs.SelectedRows.Count > 0)
+            {
+                int job_id = Convert.ToInt32(dgvJobs.SelectedRows[0].Cells["job_id"].Value);
+                string job_desc = dgvJobs.SelectedRows[0].Cells["job_desc"].Value.ToString();
+                int minlvl = Convert.ToInt32(dgvJobs.SelectedRows[0].Cells["min_lvl"].Value);
+                int maxlvl = Convert.ToInt32(dgvJobs.SelectedRows[0].Cells["max_lvl"].Value);
+
+                txtJobsJobDesc.Text = job_desc;
+                NUDJobsMinLvl.Value = minlvl;
+                NUDJobsMaxLvl.Value = maxlvl;
+            }
         }
     } // end class frmPrincipal
 } // end namespace
