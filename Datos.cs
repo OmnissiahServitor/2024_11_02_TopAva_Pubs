@@ -12,7 +12,7 @@ namespace _2024_11_02_TopAva_Pubs
     {
         SqlConnection connection;
 
-        String cadenaConexion = @"Data Source = LAPTOP-UH82VQ82; Integrated Security = true; initial catalog = pubs";
+        String cadenaConexion = @"Data Source = DESKTOP-VAND0OB\SSQLSERVER; Integrated Security = true; initial catalog = pubs";
 
         public SqlConnection abrirConexion()
         {

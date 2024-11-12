@@ -437,7 +437,7 @@ namespace _2024_11_02_TopAva_Pubs
                     "royalty = '" + txtTitle_Royalty.Text + "', " +
                     "ytd_sales = '" + txtTitle_Sales.Text + "', " +
                     "notes = '" + rtxtTitles_Notes.Text + "', " +
-                    "pubdate = '" + dtpTitles_Date.Text + 
+                    "pubdate = '" + dtpTitles_Date.Text +
 
                     "' WHERE title_id = '" + mskTitle_ID.Text + "'");
 
@@ -566,5 +566,543 @@ namespace _2024_11_02_TopAva_Pubs
         {
             actualizarTabla("titles");
         }
-    } // end class frmPrincipal
-} // end namespace
+
+        private void label37_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label42_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label43_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        //tabla4
+        private void btnmodTA_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Datos dt = new Datos();
+                bool j = dt.ejecutarABC("UPDATE titleauthor SET" +
+                 "title_id = '" + txt_titleid.Text + "'," +
+                    "au_ord = '" + txt_auord.Text + "', " +
+                    "royaltyper ='" + txt_royal.Text +
+                    "'WHERE au_id = '" + txt_auid + "'");
+                if (j)
+                {
+                    actualizarTabla("titleauthor");
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo hacer la modificacion a la tabla", "Sistema - title-Authors");
+                }
+
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message, "Sistema - Publishers", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btn4_gurdar_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Los datos son correctos?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+
+
+                Datos datos = new Datos();
+                bool j = datos.ejecutarABC("INSERT INTO titleauthor ( au_id , title_id , au_ord, royaltyper , ) " +
+                    "VALUES ('" + mskTitle_ID.Text + "','" +
+                    txt_auid.Text + "','" +
+                    txt_titleid.Text + "','" +
+                    txt_auord.Text + "','" +
+                    txt_royal.Text +
+                    "')");
+
+                if (j == true)
+                {
+                    MessageBox.Show("Datos Agregados Correctamente", "Sistema Titles-Author", MessageBoxButtons.OK);
+                    actualizarTabla("titleauthor");
+                }
+                else
+                {
+                    MessageBox.Show("Error", "Sistema tabla Titles-Author", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
+
+        private void btn4_limpiar_Click(object sender, EventArgs e)
+        {
+            txt_auid.Text = ",";
+            txt_titleid.Text = ",";
+            txt_auord.Text = ",";
+            txt_royal.Text = ",";
+
+        }
+
+        private void btn4_eliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Seguro que deseas borrar el registro au_id: " + txt_auid.Text + "?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    Datos datos = new Datos();
+                    bool j = datos.ejecutarABC("DELETE FROM titles WHERE au_id = '" + txt_auid.Text + "'");
+
+                    if (j == true)
+                    {
+                        MessageBox.Show("au_id: " + txt_auid.Text + " borrado del registro", "Sistema", MessageBoxButtons.OK);
+                        actualizarTabla("titles");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error tabla Title-Author", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btn_4buscar_Click(object sender, EventArgs e)
+        {
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT * FROM titleauthor WHERE " + comboBox1.Text + " = '" + textBox5.Text + "'");
+
+            if (ds != null)
+            {
+                dgvTitleAuthor.DataSource = ds.Tables[0];
+            }
+
+        }
+
+        private void btn3_reset_Click(object sender, EventArgs e)
+        {
+            actualizarTabla("titlesauthor");
+        }
+
+        private void cmbAuthorSearchBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvTitleAuthor_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow filaSeleccionada = dgvTitleAuthor.Rows[e.RowIndex];
+
+
+            txt_auid.Text = filaSeleccionada.Cells[0].Value.ToString();
+            txt_titleid.Text = filaSeleccionada.Cells[1].Value.ToString();
+            txt_auord.Text = filaSeleccionada.Cells[2].Value.ToString();
+            txt_royal.Text = filaSeleccionada.Cells[3].Value.ToString();
+
+
+
+        }
+        //end
+        //tabla5
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Datos dt = new Datos();
+                bool j = dt.ejecutarABC("UPDATE stores SET" +
+                 "stor_name= '" + txtstorname.Text + "'," +
+                    "stor_address = '" + txtstoraddress.Text + "', " +
+                    "city ='" + txtCity.Text + "'," +
+                    "state ='" + txtstate.Text + "'," +
+                    "zip = '" + txtzip.Text +
+                    "'WHERE id = '" + txtstorid + "'");
+                if (j)
+                {
+                    actualizarTabla("stores");
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo hacer la modificacion a la tabla", "Sistema - stores");
+                }
+
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message, "Sistema - stores", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+
+        private void btnguardarStore_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Los datos son correctos?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+
+
+                Datos datos = new Datos();
+                bool j = datos.ejecutarABC("INSERT INTO titleauthor ( id , stor_name , stor_address ,city , state , zip  ) " +
+                    "VALUES ('" + txtstorid.Text + "','" +
+                    txtstorname.Text + "','" +
+                    txtstoraddress.Text + "','" +
+                    txtCity.Text + "','" +
+                    txtstate.Text + "'," +
+                    txtzip.Text +
+                    "')");
+
+                if (j == true)
+                {
+                    MessageBox.Show("Datos Agregados Correctamente", "Sistema store", MessageBoxButtons.OK);
+                    actualizarTabla("stores");
+                }
+                else
+                {
+                    MessageBox.Show("Error", "Sistema tabla stores", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
+
+        private void btnlimpiarStores_Click(object sender, EventArgs e)
+        {
+            txtstorid.Text = ",";
+            txtstorname.Text = ",";
+            txtstoraddress.Text = ",";
+            txtCity.Text = ",";
+            txtstate.Text = ",";
+            txtzip.Text = ",";
+        }
+
+        private void btneliminarStores_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Seguro que deseas borrar el registro id: " + txtstorid.Text + "?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    Datos datos = new Datos();
+                    bool j = datos.ejecutarABC("DELETE FROM titles WHERE id = '" + txtstorid.Text + "'");
+
+                    if (j == true)
+                    {
+                        MessageBox.Show("au_id: " + txtstorid.Text + " borrado del registro", "Sistema", MessageBoxButtons.OK);
+                        actualizarTabla("titles");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error tabla stores", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btnbuscarStores_Click(object sender, EventArgs e)
+        {
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT * FROM titleauthor WHERE " + comboBox2.Text + " = '" + textBox12.Text + "'");
+
+            if (ds != null)
+            {
+                dgvStores.DataSource = ds.Tables[0];
+            }
+        }
+
+        private void btnresetearStores_Click(object sender, EventArgs e)
+        {
+            actualizarTabla("stores");
+        }
+
+        private void dgvStores_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow filaSeleccionada = dgvTitleAuthor.Rows[e.RowIndex];
+
+
+            txtstorid.Text = filaSeleccionada.Cells[0].Value.ToString();
+            txtstorname.Text = filaSeleccionada.Cells[1].Value.ToString();
+            txtstoraddress.Text = filaSeleccionada.Cells[2].Value.ToString();
+            txtCity.Text = filaSeleccionada.Cells[3].Value.ToString();
+            txtCity.Text = filaSeleccionada.Cells[4].Value.ToString();
+            txtzip.Text = filaSeleccionada.Cells[4].Value.ToString();
+
+        }
+        //end
+        //tabla6
+
+        private void btnmodsale_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Datos dt = new Datos();
+                bool j = dt.ejecutarABC("UPDATE sales SET" +
+                    "ord_num = '" + txtorder.Text + "', " +
+                    "ord_date = '" + dateTimePicker1 +
+                    "qfy ='" + txtqtf.Text + "'," +
+                    "paytems ='" + txtpytemes.Text + "'," +
+                    "title_id = '" + txttitleidSale.Text +
+                    "'WHERE stor_id = '" + txt_id + "'");
+                if (j)
+                {
+                    actualizarTabla("sales");
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo hacer la modificacion a la tabla", "Sistema - sales");
+                }
+
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message, "Sistema - sales", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btnguardaSale_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Los datos son correctos?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+
+
+                Datos datos = new Datos();
+                bool j = datos.ejecutarABC("INSERT INTO titleauthor (  stor_id , ord_num , qty , paytems , title_id) " +
+                    "VALUES ('" + txt_id.Text + "','" +
+                    txtorder.Text + "','" +
+                    dateTimePicker1.Text +
+                    txtqtf.Text + "','" +
+                    txtpytemes.Text + "'," +
+                    txttitleidSale.Text +
+                    "')");
+
+                if (j == true)
+                {
+                    MessageBox.Show("Datos Agregados Correctamente", "Sistema sales", MessageBoxButtons.OK);
+                    actualizarTabla("stores");
+                }
+                else
+                {
+                    MessageBox.Show("Error", "Sistema tabla sales", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnlimpiarsale_Click(object sender, EventArgs e)
+        {
+            txt_id.Text = ",";
+            txtorder.Text = ",";
+            dateTimePicker1 = new DateTimePicker();
+            txtqtf.Text = ",";
+            txtpytemes.Text = ",";
+            txttitleidSale.Text = ",";
+
+        }
+
+        private void btneliminarsale_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Seguro que deseas borrar el registro stor_id: " + txt_id.Text + "?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    Datos datos = new Datos();
+                    bool j = datos.ejecutarABC("DELETE FROM titles WHERE stor_id = '" + txt_id.Text + "'");
+
+                    if (j == true)
+                    {
+                        MessageBox.Show("stor_id: " + txtstorid.Text + " borrado del registro", "Sistema", MessageBoxButtons.OK);
+                        actualizarTabla("sales");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error tabla stores", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+
+        private void btnbudcarsale_Click(object sender, EventArgs e)
+        {
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT * FROM sales WHERE " + comboBox3.Text + " = '" + textBox19.Text + "'");
+
+            if (ds != null)
+            {
+                dgvSales.DataSource = ds.Tables[0];
+            }
+        }
+
+        private void btnresetearsale_Click(object sender, EventArgs e)
+        {
+            actualizarTabla("sales");
+        }
+
+        private void dgvSales_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow filaSeleccionada = dgvTitleAuthor.Rows[e.RowIndex];
+
+
+            txt_id.Text = filaSeleccionada.Cells[0].Value.ToString();
+            txtorder.Text = filaSeleccionada.Cells[1].Value.ToString();
+            txtqtf.Text = filaSeleccionada.Cells[2].Value.ToString();
+            txtpytemes.Text = filaSeleccionada.Cells[3].Value.ToString();
+            txttitleidSale.Text = filaSeleccionada.Cells[4].Value.ToString();
+
+
+        }
+
+        private void btnmodRoy_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Datos dt = new Datos();
+                bool j = dt.ejecutarABC("UPDATE roysched SET" +
+                    "title_id = '" + txttitleidRoy.Text + "', " +
+                    "lorange ='" + txtlorange.Text + "'," +
+                    "hirange ='" + txthirange.Text + "'," +
+                    "royalty = '" + txtroyalty.Text +
+                    "'WHERE title_id = '" + txttitleidRoy + "'");
+                if (j)
+                {
+                    actualizarTabla("roysched");
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo hacer la modificacion a la tabla", "Sistema - roysched");
+                }
+
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message, "Sistema - roysched", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btnguarRoy_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Los datos son correctos?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+
+
+                Datos datos = new Datos();
+                bool j = datos.ejecutarABC("INSERT INTO titleauthor ( title_id , lorange , hirange , royalty ) " +
+                    "VALUES ('" + txt_id.Text + "','" +
+                    txttitleidRoy.Text + "','" +
+                    txtlorange.Text + "','" +
+                    txthirange.Text + "'," +
+                    txtroyalty.Text +
+                    "')");
+
+                if (j == true)
+                {
+                    MessageBox.Show("Datos Agregados Correctamente", "Sistema roysched", MessageBoxButtons.OK);
+                    actualizarTabla("stores");
+                }
+                else
+                {
+                    MessageBox.Show("Error", "Sistema tabla roysched", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
+
+        private void btnlimpiarRoy_Click(object sender, EventArgs e)
+        {
+            txttitleidRoy.Text = ",";
+            txtlorange.Text = ",";
+            txthirange.Text = ",";
+            txtroyalty.Text = ",";
+
+        }
+
+        private void btneliminarRoy_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Seguro que deseas borrar el registro title_id: " + txttitleidRoy.Text + "?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    Datos datos = new Datos();
+                    bool j = datos.ejecutarABC("DELETE FROM titles WHERE title_id = '" + txttitleidRoy.Text + "'");
+
+                    if (j == true)
+                    {
+                        MessageBox.Show("stor_id: " + txtstorid.Text + " borrado del registro", "Sistema", MessageBoxButtons.OK);
+                        actualizarTabla("roysched");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error tabla stores", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btnbuscRoy_Click(object sender, EventArgs e)
+        {
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT * FROM roysched WHERE " + comboBox4.Text + " = '" + textBox20.Text + "'");
+
+            if (ds != null)
+            {
+                dgvSales.DataSource = ds.Tables[0];
+            }
+        }
+
+        private void btnresetRoy_Click(object sender, EventArgs e)
+        {
+            actualizarTabla("roysched");
+        }
+
+        private void dgvRoysched_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow filaSeleccionada = dgvRoysched.Rows[e.RowIndex];
+
+
+            txttitleidRoy.Text = filaSeleccionada.Cells[0].Value.ToString();
+            txtlorange.Text = filaSeleccionada.Cells[1].Value.ToString();
+            txthirange.Text = filaSeleccionada.Cells[2].Value.ToString();
+            txtroyalty.Text = filaSeleccionada.Cells[3].Value.ToString();
+            
+        }
+    }
+
+}
+// end class frmPrincipal
+// end namespace
