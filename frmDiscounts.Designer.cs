@@ -239,6 +239,7 @@
             txtType.Name = "txtType";
             txtType.Size = new Size(174, 23);
             txtType.TabIndex = 7;
+            txtType.TextChanged += txtType_TextChanged;
             // 
             // txtDiscount_ID
             // 

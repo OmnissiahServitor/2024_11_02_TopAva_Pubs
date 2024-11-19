@@ -102,6 +102,10 @@ namespace _2024_11_02_TopAva_Pubs
         }
         #endregion
 
-        
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
