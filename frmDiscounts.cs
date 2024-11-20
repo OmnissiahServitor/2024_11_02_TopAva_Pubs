@@ -52,7 +52,7 @@ namespace _2024_11_02_TopAva_Pubs
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(ex.Message, "Sistema - Roysched", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Sistema - Discounts", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -67,7 +67,7 @@ namespace _2024_11_02_TopAva_Pubs
                     "VALUES ('" + txtType.Text + "','" +
                     cmbStore_ID.Text + "','" +
                     num_LowQuantity.Text + "','" +
-                    num_HighQuantity.Text + "',' " + 
+                    num_HighQuantity.Text + "',' " +
                     txt_DiscountPer.Text +
                     "')");
 
@@ -78,7 +78,7 @@ namespace _2024_11_02_TopAva_Pubs
                 }
                 else
                 {
-                    MessageBox.Show("Error", "Sistema Roysched", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error", "Sistema Discounts", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -100,12 +100,13 @@ namespace _2024_11_02_TopAva_Pubs
                 if (MessageBox.Show("Seguro que deseas borrar el registro ID: " + txtDiscount_ID.Text + "?", "Sistemas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     Datos datos = new Datos();
-                    bool j = datos.ejecutarABC("WITH numbered_rows AS ( " +
-                        "SELECT stor_id, ROW_NUMBER() OVER (ORDER BY stor_id) AS row_num " +
-                        "FROM discount " +
-                        ") " +
-                        "DELETE FROM discount " +
-                        "WHERE stor_id = (SELECT stor_id FROM numbered_rows WHERE row_num = '" + txtDiscount_ID.Text + "' )");
+                    if (dgvDiscounts.SelectedRows.Count > 0)
+                    {
+                        int id = Convert.ToInt32(dgvDiscounts.SelectedRows[0].Cells["Discounts ID"]);
+
+                        datos.ejecutarABC("DELETE FROM discounts where ");
+                    }
+                    bool j = datos.ejecutarABC("DELETE FROM discounts where ");
 
                     if (j == true)
                     {
@@ -167,6 +168,11 @@ namespace _2024_11_02_TopAva_Pubs
             ds = dt.consulta("SELECT stor_id FROM stores");
             cmbStore_ID.DataSource = ds.Tables[0];
             cmbStore_ID.DisplayMember = "stor_id";
+        }
+
+        private void txtType_TextChanged(object sender, EventArgs e)
+        {
+
         }
     } // end class
 } // end namespace
