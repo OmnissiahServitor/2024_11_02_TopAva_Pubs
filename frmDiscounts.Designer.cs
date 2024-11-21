@@ -132,6 +132,7 @@
             cmb_SearchBy.Name = "cmb_SearchBy";
             cmb_SearchBy.Size = new Size(169, 29);
             cmb_SearchBy.TabIndex = 37;
+            cmb_SearchBy.SelectedIndexChanged += cmb_SearchBy_SelectedIndexChanged;
             // 
             // panel8
             // 

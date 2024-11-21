@@ -95,7 +95,8 @@ namespace _2024_11_02_TopAva_Pubs
 
         private void pubInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            frmPubInfo frmPubInfo = new frmPubInfo();
+            frmPubInfo.Show();
         }
 
         private void eToolStripMenuItem_Click(object sender, EventArgs e)

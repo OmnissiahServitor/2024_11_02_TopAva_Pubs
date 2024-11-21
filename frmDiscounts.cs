@@ -174,5 +174,10 @@ namespace _2024_11_02_TopAva_Pubs
         {
 
         }
+
+        private void cmb_SearchBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     } // end class
 } // end namespace
