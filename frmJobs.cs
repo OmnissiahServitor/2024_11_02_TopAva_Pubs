@@ -22,7 +22,7 @@ namespace _2024_11_02_TopAva_Pubs
 
 
             actualizardgv();
-            
+
             numMinLvl.Minimum = 0;
             numMinLvl.Maximum = 1000;
 
@@ -31,7 +31,7 @@ namespace _2024_11_02_TopAva_Pubs
 
         }
 
-        
+
 
         public void actualizardgv()
         {
@@ -178,6 +178,22 @@ namespace _2024_11_02_TopAva_Pubs
         private void dgvJobs_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
+            if (e.RowIndex >= 0)
+            {
+                // Obtener la fila seleccionada
+                DataGridViewRow row = dgvJobs.Rows[e.RowIndex];
+
+                // Extraer los valores de las celdas y asignarlos a los controles del formulario
+                txtJobDesc.Text = row.Cells["job_desc"].Value.ToString();
+                numMinLvl.Value = Convert.ToInt32(row.Cells["min_lvl"].Value);
+                numMaxLvl.Value = Convert.ToInt32(row.Cells["max_lvl"].Value);
+
+
+            }
+        }
+
+        private void dgvJobs_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
             if (e.RowIndex >= 0)
             {
                 // Obtener la fila seleccionada

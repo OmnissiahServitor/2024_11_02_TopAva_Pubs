@@ -174,5 +174,21 @@ namespace _2024_11_02_TopAva_Pubs
         {
 
         }
+
+        private void dgvDiscounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dgvDiscounts.Rows[e.RowIndex];
+
+
+                txtDiscount_ID.Text = selectedRow.Cells[0].Value.ToString();
+                txtType.Text = selectedRow.Cells[1].Value.ToString();
+                cmbStore_ID.Text = selectedRow.Cells[2].Value.ToString();
+                num_LowQuantity.Value = int.Parse(selectedRow.Cells[3].Value.ToString() );
+                num_HighQuantity.Value = int.Parse(selectedRow.Cells[4].Value.ToString() );
+                txt_DiscountPer.Text = selectedRow.Cells[5].Value.ToString();
+            }
+        }
     } // end class
 } // end namespace

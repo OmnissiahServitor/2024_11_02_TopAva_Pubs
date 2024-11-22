@@ -401,6 +401,7 @@
             dgvTitles.Name = "dgvTitles";
             dgvTitles.Size = new Size(1180, 581);
             dgvTitles.TabIndex = 7;
+            dgvTitles.CellContentClick += dgvTitles_CellContentClick;
             // 
             // frmTitles
             // 

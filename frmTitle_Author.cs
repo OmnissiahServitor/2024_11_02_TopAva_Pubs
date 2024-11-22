@@ -38,7 +38,7 @@ namespace _2024_11_02_TopAva_Pubs
                     "au_id = '" + cmbAuTit_AuthorID.Text + "', " +
                     "au_ord = '" + txtAutTi_AuthorOrd.Text + "', " +
                     "royaltyper = '" + numTiAu_RoyaltyPercentage.Text + "' " +
-                    
+
                     "' WHERE title_id = '" + cmbAuTit_TitleID.Text + "'");
 
                 if (j)
@@ -69,7 +69,7 @@ namespace _2024_11_02_TopAva_Pubs
                     "VALUES ('" + cmbAuTit_TitleID.Text + "','" +
                     cmbAuTit_AuthorID.Text + "','" +
                     txtAutTi_AuthorOrd.Text + "','" +
-                    numTiAu_RoyaltyPercentage.Text  +
+                    numTiAu_RoyaltyPercentage.Text +
                     "')");
 
                 if (j == true)
@@ -161,6 +161,20 @@ namespace _2024_11_02_TopAva_Pubs
             ds = dt.consulta("SELECT au_id FROM authors");
             cmbAuTit_AuthorID.DataSource = ds.Tables[0];
             cmbAuTit_AuthorID.DisplayMember = "au_id";
+        }
+
+        private void dgvTitleAuthor_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dgvTitleAuthor.Rows[e.RowIndex];
+
+                
+                cmbAuTit_TitleID.Text = selectedRow.Cells[0].Value.ToString();
+                cmbAuTit_AuthorID.Text = selectedRow.Cells[1].Value.ToString();
+                txtAutTi_AuthorOrd.Text = selectedRow.Cells[2].Value.ToString();
+                numTiAu_RoyaltyPercentage.Text = selectedRow.Cells[3].Value.ToString();
+            }
         }
     } // end class
 } // end namespace

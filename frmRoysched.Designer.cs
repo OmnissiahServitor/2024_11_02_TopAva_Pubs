@@ -291,6 +291,7 @@
             dgvRoysched.Name = "dgvRoysched";
             dgvRoysched.Size = new Size(915, 371);
             dgvRoysched.TabIndex = 7;
+            dgvRoysched.CellContentClick += dgvRoysched_CellContentClick;
             // 
             // frmRoysched
             // 

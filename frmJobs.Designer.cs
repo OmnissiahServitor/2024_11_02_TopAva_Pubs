@@ -246,6 +246,7 @@
             dgvJobs.Size = new Size(494, 333);
             dgvJobs.TabIndex = 11;
             dgvJobs.CellClick += dgvJobs_CellClick_1;
+            dgvJobs.CellContentClick += dgvJobs_CellContentClick;
             // 
             // frmJobs
             // 

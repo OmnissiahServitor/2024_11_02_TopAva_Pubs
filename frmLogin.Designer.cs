@@ -117,6 +117,7 @@
             Controls.Add(panelLogin);
             Controls.Add(label1);
             DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frmLogin";
             Text = "Login";
             Load += frmLogin_Load;

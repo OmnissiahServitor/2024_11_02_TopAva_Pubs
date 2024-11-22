@@ -72,7 +72,7 @@ namespace _2024_11_02_TopAva_Pubs
                     txtStores_address.Text + "','" +
                     txtStores_City.Text + "',' " +
                     mskStores_State.Text + "','" +
-                    mskStores_Zip.Text + 
+                    mskStores_Zip.Text +
                     "')");
 
                 if (j == true)
@@ -153,5 +153,21 @@ namespace _2024_11_02_TopAva_Pubs
                 dgvStores.DataSource = ds.Tables[0];
             } // end if ds!=null
         } // end actualizarTabla()
+
+        private void dgvStores_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dgvStores.Rows[e.RowIndex];
+
+                
+                mskStores_ID.Text = selectedRow.Cells[0].Value.ToString(); ;
+                txtStores_name.Text = selectedRow.Cells[1].Value.ToString(); ;
+                txtStores_address.Text = selectedRow.Cells[2].Value.ToString(); ;
+                txtStores_City.Text = selectedRow.Cells[3].Value.ToString(); ;
+                mskStores_State.Text = selectedRow.Cells[4].Value.ToString(); ;
+                mskStores_Zip.Text = selectedRow.Cells[5].Value.ToString(); ;
+            }
+        }
     } // end class
 } // end namespace

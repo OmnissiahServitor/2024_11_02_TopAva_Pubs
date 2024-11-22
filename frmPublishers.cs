@@ -144,5 +144,21 @@ namespace _2024_11_02_TopAva_Pubs
             } // end if ds!=null
         } // end actualizarTabla()
 
+        private void dgvPublishers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                // Obtener la fila seleccionada
+                DataGridViewRow selectedRow = dgvPublishers.Rows[e.RowIndex];
+
+                // Extraer los valores de las celdas y asignarlos a los controles del formulario
+                mskPublishers_ID.Text = selectedRow.Cells[0].Value.ToString();
+                txtPublisher_name.Text = selectedRow.Cells[1].Value.ToString();
+                txtPublisher_City.Text = selectedRow.Cells[2].Value.ToString();
+                mskPublisher_State.Text = selectedRow.Cells[3].Value.ToString();
+                txtPublisher_Country.Text = selectedRow.Cells[4].Value.ToString();
+
+            }
+        }
     } // end class publishers
 } // end namespace

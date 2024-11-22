@@ -299,6 +299,7 @@
             dgvPublishers.Name = "dgvPublishers";
             dgvPublishers.Size = new Size(1180, 581);
             dgvPublishers.TabIndex = 7;
+            dgvPublishers.CellContentClick += dgvPublishers_CellContentClick;
             // 
             // frmPublishers
             // 
