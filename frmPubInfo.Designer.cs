@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             panel8 = new Panel();
-            textBox1 = new TextBox();
+            btnImagen = new Button();
+            txtPrInfo = new TextBox();
             pictureBox = new PictureBox();
             cmbPubId = new ComboBox();
             btnEliminar = new Button();
@@ -56,7 +57,8 @@
             // panel8
             // 
             panel8.BackColor = Color.FromArgb(192, 255, 255);
-            panel8.Controls.Add(textBox1);
+            panel8.Controls.Add(btnImagen);
+            panel8.Controls.Add(txtPrInfo);
             panel8.Controls.Add(pictureBox);
             panel8.Controls.Add(cmbPubId);
             panel8.Controls.Add(btnEliminar);
@@ -68,22 +70,33 @@
             panel8.Controls.Add(label1);
             panel8.Location = new Point(12, 12);
             panel8.Name = "panel8";
-            panel8.Size = new Size(414, 520);
+            panel8.Size = new Size(509, 520);
             panel8.TabIndex = 9;
+            panel8.Paint += panel8_Paint;
             // 
-            // textBox1
+            // btnImagen
             // 
-            textBox1.Location = new Point(12, 220);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(380, 155);
-            textBox1.TabIndex = 47;
+            btnImagen.Location = new Point(242, 163);
+            btnImagen.Name = "btnImagen";
+            btnImagen.Size = new Size(75, 23);
+            btnImagen.TabIndex = 48;
+            btnImagen.Text = "Seleccionar";
+            btnImagen.UseVisualStyleBackColor = true;
+            btnImagen.Click += btnImagen_Click;
+            // 
+            // txtPrInfo
+            // 
+            txtPrInfo.Location = new Point(6, 228);
+            txtPrInfo.Multiline = true;
+            txtPrInfo.Name = "txtPrInfo";
+            txtPrInfo.Size = new Size(500, 147);
+            txtPrInfo.TabIndex = 47;
             // 
             // pictureBox
             // 
-            pictureBox.Location = new Point(239, 61);
+            pictureBox.Location = new Point(239, 28);
             pictureBox.Name = "pictureBox";
-            pictureBox.Size = new Size(153, 124);
+            pictureBox.Size = new Size(267, 124);
             pictureBox.TabIndex = 46;
             pictureBox.TabStop = false;
             pictureBox.Click += pictureBox1_Click;
@@ -100,44 +113,48 @@
             // 
             btnEliminar.BackColor = Color.Maroon;
             btnEliminar.ForeColor = Color.White;
-            btnEliminar.Location = new Point(46, 468);
+            btnEliminar.Location = new Point(88, 468);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(330, 23);
             btnEliminar.TabIndex = 44;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // btnModificar
             // 
             btnModificar.Font = new Font("Segoe UI", 9F);
-            btnModificar.Location = new Point(46, 381);
+            btnModificar.Location = new Point(88, 381);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(330, 23);
             btnModificar.TabIndex = 41;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = true;
+            btnModificar.Click += btnModificar_Click;
             // 
             // btnGuardar
             // 
             btnGuardar.BackColor = Color.Green;
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(46, 410);
+            btnGuardar.Location = new Point(88, 410);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(330, 23);
             btnGuardar.TabIndex = 42;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // btnLimpiar
             // 
             btnLimpiar.BackColor = Color.FromArgb(0, 0, 192);
             btnLimpiar.ForeColor = Color.White;
-            btnLimpiar.Location = new Point(46, 439);
+            btnLimpiar.Location = new Point(88, 439);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(330, 23);
             btnLimpiar.TabIndex = 43;
             btnLimpiar.Text = "Limpiar";
             btnLimpiar.UseVisualStyleBackColor = false;
+            btnLimpiar.Click += BtnLimpiar_Click;
             // 
             // label3
             // 
@@ -160,7 +177,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(288, 36);
+            label1.Location = new Point(239, 2);
             label1.Name = "label1";
             label1.Size = new Size(34, 15);
             label1.TabIndex = 0;
@@ -175,7 +192,7 @@
             panel19.Controls.Add(label19);
             panel19.Controls.Add(txt_Buscar);
             panel19.Controls.Add(cmb_SearchBy);
-            panel19.Location = new Point(432, 12);
+            panel19.Location = new Point(527, 12);
             panel19.Name = "panel19";
             panel19.Size = new Size(494, 170);
             panel19.TabIndex = 10;
@@ -240,7 +257,7 @@
             // dgvPubInfo
             // 
             dgvPubInfo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPubInfo.Location = new Point(432, 188);
+            dgvPubInfo.Location = new Point(527, 199);
             dgvPubInfo.Name = "dgvPubInfo";
             dgvPubInfo.Size = new Size(494, 333);
             dgvPubInfo.TabIndex = 41;
@@ -250,7 +267,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(950, 558);
+            ClientSize = new Size(1113, 648);
             Controls.Add(dgvPubInfo);
             Controls.Add(panel19);
             Controls.Add(panel8);
@@ -286,6 +303,7 @@
         private DataGridView dgvPubInfo;
         private PictureBox pictureBox;
         private ComboBox cmbPubId;
-        private TextBox textBox1;
+        private TextBox txtPrInfo;
+        private Button btnImagen;
     }
 }
