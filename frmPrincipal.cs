@@ -101,7 +101,8 @@ namespace _2024_11_02_TopAva_Pubs
 
         private void eToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            frmEmployee frmEmployee = new frmEmployee();  
+            frmEmployee.Show();
         }
 
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)

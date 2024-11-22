@@ -29,6 +29,7 @@ namespace _2024_11_02_TopAva_Pubs
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string consulta = "SELECT pub_id FROM publishers WHERE pub_id NOT IN(SELECT pub_id FROM pub_info)";
+
                 SqlCommand cmd = new SqlCommand(consulta, conn);
 
                 try
