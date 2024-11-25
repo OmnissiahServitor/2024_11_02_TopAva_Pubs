@@ -190,6 +190,7 @@
             btn_Resetear.TabIndex = 40;
             btn_Resetear.Text = "Resetear";
             btn_Resetear.UseVisualStyleBackColor = true;
+            btn_Resetear.Click += btn_Resetear_Click;
             // 
             // label7
             // 
@@ -210,6 +211,7 @@
             btn_Buscar.TabIndex = 38;
             btn_Buscar.Text = "Buscar";
             btn_Buscar.UseVisualStyleBackColor = true;
+            btn_Buscar.Click += btn_Buscar_Click;
             // 
             // label19
             // 

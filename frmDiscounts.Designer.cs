@@ -45,12 +45,10 @@
             num_LowQuantity = new NumericUpDown();
             cmbStore_ID = new ComboBox();
             txtType = new TextBox();
-            txtDiscount_ID = new TextBox();
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
-            label2 = new Label();
             label1 = new Label();
             dgvDiscounts = new DataGridView();
             panel19.SuspendLayout();
@@ -146,12 +144,10 @@
             panel8.Controls.Add(num_LowQuantity);
             panel8.Controls.Add(cmbStore_ID);
             panel8.Controls.Add(txtType);
-            panel8.Controls.Add(txtDiscount_ID);
             panel8.Controls.Add(label6);
             panel8.Controls.Add(label5);
             panel8.Controls.Add(label4);
             panel8.Controls.Add(label3);
-            panel8.Controls.Add(label2);
             panel8.Controls.Add(label1);
             panel8.Location = new Point(12, 12);
             panel8.Name = "panel8";
@@ -172,7 +168,7 @@
             // 
             // txt_DiscountPer
             // 
-            txt_DiscountPer.Location = new Point(191, 255);
+            txt_DiscountPer.Location = new Point(185, 186);
             txt_DiscountPer.Name = "txt_DiscountPer";
             txt_DiscountPer.Size = new Size(174, 23);
             txt_DiscountPer.TabIndex = 11;
@@ -202,7 +198,7 @@
             // 
             // num_HighQuantity
             // 
-            num_HighQuantity.Location = new Point(191, 220);
+            num_HighQuantity.Location = new Point(185, 151);
             num_HighQuantity.Name = "num_HighQuantity";
             num_HighQuantity.Size = new Size(174, 23);
             num_HighQuantity.TabIndex = 10;
@@ -221,7 +217,7 @@
             // 
             // num_LowQuantity
             // 
-            num_LowQuantity.Location = new Point(191, 184);
+            num_LowQuantity.Location = new Point(185, 115);
             num_LowQuantity.Name = "num_LowQuantity";
             num_LowQuantity.Size = new Size(174, 23);
             num_LowQuantity.TabIndex = 9;
@@ -229,30 +225,23 @@
             // cmbStore_ID
             // 
             cmbStore_ID.FormattingEnabled = true;
-            cmbStore_ID.Location = new Point(191, 147);
+            cmbStore_ID.Location = new Point(185, 78);
             cmbStore_ID.Name = "cmbStore_ID";
             cmbStore_ID.Size = new Size(174, 23);
             cmbStore_ID.TabIndex = 8;
             // 
             // txtType
             // 
-            txtType.Location = new Point(191, 111);
+            txtType.Location = new Point(185, 42);
             txtType.Name = "txtType";
             txtType.Size = new Size(174, 23);
             txtType.TabIndex = 7;
             txtType.TextChanged += txtType_TextChanged;
             // 
-            // txtDiscount_ID
-            // 
-            txtDiscount_ID.Location = new Point(191, 75);
-            txtDiscount_ID.Name = "txtDiscount_ID";
-            txtDiscount_ID.Size = new Size(174, 23);
-            txtDiscount_ID.TabIndex = 6;
-            // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(94, 258);
+            label6.Location = new Point(88, 189);
             label6.Name = "label6";
             label6.Size = new Size(57, 15);
             label6.TabIndex = 5;
@@ -261,7 +250,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(76, 222);
+            label5.Location = new Point(70, 153);
             label5.Name = "label5";
             label5.Size = new Size(85, 15);
             label5.TabIndex = 4;
@@ -270,7 +259,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(80, 186);
+            label4.Location = new Point(74, 117);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 3;
@@ -279,25 +268,16 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(102, 150);
+            label3.Location = new Point(96, 81);
             label3.Name = "label3";
             label3.Size = new Size(59, 15);
             label3.TabIndex = 2;
             label3.Text = "Store's ID:";
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(90, 78);
-            label2.Name = "label2";
-            label2.Size = new Size(71, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Discount ID:";
-            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(77, 114);
+            label1.Location = new Point(71, 45);
             label1.Name = "label1";
             label1.Size = new Size(84, 15);
             label1.TabIndex = 0;
@@ -310,6 +290,7 @@
             dgvDiscounts.Name = "dgvDiscounts";
             dgvDiscounts.Size = new Size(494, 333);
             dgvDiscounts.TabIndex = 7;
+            dgvDiscounts.CellClick += dgvDiscounts_CellClick;
             // 
             // frmDiscounts
             // 
@@ -337,7 +318,6 @@
         private Panel panel8;
         private Label label4;
         private Label label3;
-        private Label label2;
         private Label label1;
         private DataGridView dgvDiscounts;
         private Label label5;
@@ -346,7 +326,6 @@
         private NumericUpDown num_LowQuantity;
         private ComboBox cmbStore_ID;
         private TextBox txtType;
-        private TextBox txtDiscount_ID;
         private TextBox txt_DiscountPer;
         private Button btnEliminar;
         private Button btnModificar;

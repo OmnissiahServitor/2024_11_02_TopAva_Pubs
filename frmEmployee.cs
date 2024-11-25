@@ -35,6 +35,18 @@ namespace _2024_11_02_TopAva_Pubs
             dgvEmployee.DataSource = ds.Tables[0];
         }
 
+        public void actualizarComboBox()
+        {
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT ORDINAL_POSITION, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'employee'");
+            cmb_SearchBy.DataSource = ds.Tables[0];
+            cmb_SearchBy.DisplayMember = "COLUMN_NAME";
+            cmb_SearchBy.ValueMember = "ORDINAL_POSITION";
+
+
+        }
+
         private void SetNumericUpDownValues()
         {
             // Diccionario que mapea job_id a sus respectivos min_lvl y max_lvl
@@ -133,6 +145,8 @@ namespace _2024_11_02_TopAva_Pubs
         {
             cargarDgv();
             cargarCombo();
+            actualizarComboBox();
+            
         }
 
         private void dgvEmployee_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -182,55 +196,55 @@ namespace _2024_11_02_TopAva_Pubs
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            
-                string employeeId = txtEmployeeId.Text;
-                string fname = txtFname.Text;
-                string minit = txtMinit.Text;
-                string lname = txtLastName.Text;
-                int jobId = Convert.ToInt32(cmbJobId.Text);
-                int joblvl = Convert.ToInt32(nudJobLvl.Value);
-                int publisherId = Convert.ToInt32(cmbPubId.Text);
-                DateTime hiredate = dtEmployee.Value;
-           
-                if (MessageBox.Show("Sus datos son correctos?", "Sistema - Pub_Info", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+
+            string employeeId = txtEmployeeId.Text;
+            string fname = txtFname.Text;
+            string minit = txtMinit.Text;
+            string lname = txtLastName.Text;
+            int jobId = Convert.ToInt32(cmbJobId.Text);
+            int joblvl = Convert.ToInt32(nudJobLvl.Value);
+            int publisherId = Convert.ToInt32(cmbPubId.Text);
+            DateTime hiredate = dtEmployee.Value;
+
+            if (MessageBox.Show("Sus datos son correctos?", "Sistema - Pub_Info", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                try
                 {
-                    try
+                    using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        using (SqlConnection conn = new SqlConnection(connectionString))
+                        string consulta = "INSERT INTO employee(emp_id, fname, minit, lname, job_id, job_lvl, pub_id, hire_date)" +
+                            "VALUES(@emp_id, @fname, @minit, @lname, @job_id, @job_lvl, @pub_id, @hire_date)";
+                        using (SqlCommand cmd = new SqlCommand(consulta, conn))
                         {
-                            string consulta = "INSERT INTO employee(emp_id, fname, minit, lname, job_id, job_lvl, pub_id, hire_date)" +
-                                "VALUES(@emp_id, @fname, @minit, @lname, @job_id, @job_lvl, @pub_id, @hire_date)";
-                            using (SqlCommand cmd = new SqlCommand(consulta, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@emp_id", employeeId);
-                                cmd.Parameters.AddWithValue("@fname", fname);
-                                cmd.Parameters.AddWithValue("@minit", minit);
-                                cmd.Parameters.AddWithValue("@lname", lname);
-                                cmd.Parameters.AddWithValue("@job_id", jobId);
-                                cmd.Parameters.AddWithValue("@job_lvl", joblvl);
-                                cmd.Parameters.AddWithValue("@pub_id", publisherId);
-                                cmd.Parameters.AddWithValue("@hire_date", hiredate);
+                            cmd.Parameters.AddWithValue("@emp_id", employeeId);
+                            cmd.Parameters.AddWithValue("@fname", fname);
+                            cmd.Parameters.AddWithValue("@minit", minit);
+                            cmd.Parameters.AddWithValue("@lname", lname);
+                            cmd.Parameters.AddWithValue("@job_id", jobId);
+                            cmd.Parameters.AddWithValue("@job_lvl", joblvl);
+                            cmd.Parameters.AddWithValue("@pub_id", publisherId);
+                            cmd.Parameters.AddWithValue("@hire_date", hiredate);
 
 
-                                conn.Open();
-                                cmd.ExecuteNonQuery();
-                                conn.Close();
-                            }
-                            MessageBox.Show("Datos agregados correctamente", "Sistema - Pub_Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            cmbPubId.Items.Clear();
-
-                            cargarDgv();
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
                         }
+                        MessageBox.Show("Datos agregados correctamente", "Sistema - Pub_Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cmbPubId.Items.Clear();
+
+                        cargarDgv();
                     }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show("Por favor, ingresa un EmployeeId valido", "Sistema - Employee", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        MessageBox.Show("Para generar un EmployeeId valido usa [A-Z][A-Z][A-Z][1-9][0-9][0-9][0-9][0-9][F ó M]", "Sistema - Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                     
                 }
-           
-            
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Por favor, ingresa un EmployeeId valido", "Sistema - Employee", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Para generar un EmployeeId valido usa [A-Z][A-Z][A-Z][1-9][0-9][0-9][0-9][0-9][F ó M]", "Sistema - Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+
+
         }
 
         private void cmbJobId_SelectedIndexChanged(object sender, EventArgs e)
@@ -277,30 +291,30 @@ namespace _2024_11_02_TopAva_Pubs
                         int joblvl = Convert.ToInt32(nudJobLvl.Value);
                         int publisherId = Convert.ToInt32(cmbPubId.Text);
                         DateTime hiredate = dtEmployee.Value;
-                        
-                            using (SqlConnection conn = new SqlConnection(connectionString))
+
+                        using (SqlConnection conn = new SqlConnection(connectionString))
+                        {
+                            string consulta = "UPDATE employee SET fname = @fname, minit = @minit, lname = @lname, job_id = @job_id, job_lvl = @job_lvl, pub_id = @pub_id, hire_date = @hire_date WHERE emp_id = @emp_id;";
+                            using (SqlCommand cmd = new SqlCommand(consulta, conn))
                             {
-                                string consulta = "UPDATE employee SET fname = @fname, minit = @minit, lname = @lname, job_id = @job_id, job_lvl = @job_lvl, pub_id = @pub_id, hire_date = @hire_date WHERE emp_id = @emp_id;";
-                                using (SqlCommand cmd = new SqlCommand(consulta, conn))
-                                {
-                                    if (minit.Length > 1) minit = minit.Substring(0, 1);
-                                    cmd.Parameters.AddWithValue("@emp_id", employeeId);
-                                    cmd.Parameters.AddWithValue("@fname", fname);
-                                    cmd.Parameters.AddWithValue("@minit", minit);
-                                    cmd.Parameters.AddWithValue("@lname", lname);
-                                    cmd.Parameters.AddWithValue("@job_id", jobId);
-                                    cmd.Parameters.AddWithValue("@job_lvl", joblvl);
-                                    cmd.Parameters.AddWithValue("@pub_id", publisherId);
-                                    cmd.Parameters.AddWithValue("@hire_date", hiredate);
-                                    conn.Open();
-                                    cmd.ExecuteNonQuery();
-                                    conn.Close();
-                                }
+                                if (minit.Length > 1) minit = minit.Substring(0, 1);
+                                cmd.Parameters.AddWithValue("@emp_id", employeeId);
+                                cmd.Parameters.AddWithValue("@fname", fname);
+                                cmd.Parameters.AddWithValue("@minit", minit);
+                                cmd.Parameters.AddWithValue("@lname", lname);
+                                cmd.Parameters.AddWithValue("@job_id", jobId);
+                                cmd.Parameters.AddWithValue("@job_lvl", joblvl);
+                                cmd.Parameters.AddWithValue("@pub_id", publisherId);
+                                cmd.Parameters.AddWithValue("@hire_date", hiredate);
+                                conn.Open();
+                                cmd.ExecuteNonQuery();
+                                conn.Close();
                             }
-                            MessageBox.Show("Datos modificados con exito", "Sistema - Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            cmbPubId.Items.Clear();
-                        
-                       
+                        }
+                        MessageBox.Show("Datos modificados con exito", "Sistema - Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cmbPubId.Items.Clear();
+
+
                         limpiar();
 
                     }
@@ -313,6 +327,22 @@ namespace _2024_11_02_TopAva_Pubs
             }
         }
 
-       
+        private void btn_Buscar_Click(object sender, EventArgs e)
+        {
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT * FROM employee WHERE " + cmb_SearchBy.Text + " = '" + txt_Buscar.Text + "'");
+
+
+            if (ds != null)
+            {
+                dgvEmployee.DataSource = ds.Tables[0];
+            }
+        }
+
+        private void btn_Resetear_Click(object sender, EventArgs e)
+        {
+            cargarDgv();  
+        }
     }
 }

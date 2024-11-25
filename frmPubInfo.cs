@@ -21,6 +21,19 @@ namespace _2024_11_02_TopAva_Pubs
         public frmPubInfo()
         {
             InitializeComponent();
+            actualizarComboBox();
+        }
+
+        public void actualizarComboBox()
+        {
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT ORDINAL_POSITION, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'pub_info'");
+            cmb_SearchBy.DataSource = ds.Tables[0];
+            cmb_SearchBy.DisplayMember = "COLUMN_NAME";
+            cmb_SearchBy.ValueMember = "ORDINAL_POSITION";
+
+           
         }
 
         public void cargarCombo()
@@ -229,12 +242,12 @@ namespace _2024_11_02_TopAva_Pubs
         {
             if (MessageBox.Show("Esta seguro que quiere modificar los datos?", "Sistema - Pub_Info", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                 if (dgvPubInfo.SelectedRows.Count > 0)
-                { 
+                {
                     string imagePath = ofd.FileName;
                     byte[] imageData = File.ReadAllBytes(imagePath);
                     int pub_id = Convert.ToInt32(dgvPubInfo.SelectedRows[0].Cells["pub_id"].Value);
                     string pr_info = txtPrInfo.Text;
-                
+
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         string consulta = "UPDATE pub_info set logo = @logo, pr_info = @pr_info WHERE pub_id = @pub_id";
@@ -252,7 +265,27 @@ namespace _2024_11_02_TopAva_Pubs
                     MessageBox.Show("Datos modificados con exito", "Sistema - Pub_Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     cmbPubId.Items.Clear();
                     limpiar();
+                }
+        }
+
+        private void btn_Buscar_Click(object sender, EventArgs e)
+        {
+
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT * FROM pub_info WHERE " + cmb_SearchBy.Text + " = '" + txt_Buscar.Text + "'");
+
+
+            if (ds != null)
+            {
+                dgvPubInfo.DataSource = ds.Tables[0];
             }
         }
+
+        private void btn_Resetear_Click(object sender, EventArgs e)
+        {
+            cargarDgv();
+        }
+
     }
 }

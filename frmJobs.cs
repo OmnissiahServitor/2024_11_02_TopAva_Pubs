@@ -22,7 +22,7 @@ namespace _2024_11_02_TopAva_Pubs
 
 
             actualizardgv();
-            
+            actualizarComboBox();
             numMinLvl.Minimum = 0;
             numMinLvl.Maximum = 1000;
 
@@ -31,7 +31,18 @@ namespace _2024_11_02_TopAva_Pubs
 
         }
 
-        
+        public void actualizarComboBox()
+        {
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT ORDINAL_POSITION, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'jobs'");
+            cmb_SearchBy.DataSource = ds.Tables[0];
+            cmb_SearchBy.DisplayMember = "COLUMN_NAME";
+            cmb_SearchBy.ValueMember = "ORDINAL_POSITION";
+
+
+        }
+
 
         public void actualizardgv()
         {
@@ -51,7 +62,7 @@ namespace _2024_11_02_TopAva_Pubs
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            
+
             try
             {
                 string jobDesc = txtJobDesc.Text;
@@ -191,6 +202,24 @@ namespace _2024_11_02_TopAva_Pubs
 
 
             }
+        }
+
+        private void btn_Buscar_Click(object sender, EventArgs e)
+        {
+            Datos dt = new Datos();
+
+            ds = dt.consulta("SELECT * FROM jobs WHERE " + cmb_SearchBy.Text + " = '" + txt_Buscar.Text + "'");
+
+
+            if (ds != null)
+            {
+                dgvJobs.DataSource = ds.Tables[0];
+            }
+        }
+
+        private void btn_Resetear_Click(object sender, EventArgs e)
+        {
+            actualizardgv();
         }
     }
 }
