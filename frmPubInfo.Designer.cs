@@ -1,6 +1,6 @@
 ﻿namespace _2024_11_02_TopAva_Pubs
 {
-    partial class frmJobs
+    partial class frmPubInfo
     {
         /// <summary>
         /// Required designer variable.
@@ -29,15 +29,16 @@
         private void InitializeComponent()
         {
             panel8 = new Panel();
+            btnImagen = new Button();
+            txtPrInfo = new TextBox();
+            pictureBox = new PictureBox();
+            cmbPubId = new ComboBox();
             btnEliminar = new Button();
             btnModificar = new Button();
             btnGuardar = new Button();
-            numMaxLvl = new NumericUpDown();
             btnLimpiar = new Button();
-            numMinLvl = new NumericUpDown();
-            txtJobDesc = new TextBox();
-            label5 = new Label();
-            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
             label1 = new Label();
             panel19 = new Panel();
             btn_Resetear = new Button();
@@ -46,38 +47,73 @@
             label19 = new Label();
             txt_Buscar = new TextBox();
             cmb_SearchBy = new ComboBox();
-            dgvJobs = new DataGridView();
+            dgvPubInfo = new DataGridView();
             panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numMaxLvl).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numMinLvl).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             panel19.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvJobs).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvPubInfo).BeginInit();
             SuspendLayout();
             // 
             // panel8
             // 
             panel8.BackColor = Color.FromArgb(192, 255, 255);
+            panel8.Controls.Add(btnImagen);
+            panel8.Controls.Add(txtPrInfo);
+            panel8.Controls.Add(pictureBox);
+            panel8.Controls.Add(cmbPubId);
             panel8.Controls.Add(btnEliminar);
             panel8.Controls.Add(btnModificar);
             panel8.Controls.Add(btnGuardar);
-            panel8.Controls.Add(numMaxLvl);
             panel8.Controls.Add(btnLimpiar);
-            panel8.Controls.Add(numMinLvl);
-            panel8.Controls.Add(txtJobDesc);
-            panel8.Controls.Add(label5);
-            panel8.Controls.Add(label4);
+            panel8.Controls.Add(label3);
+            panel8.Controls.Add(label2);
             panel8.Controls.Add(label1);
-            panel8.Location = new Point(12, 3);
+            panel8.Location = new Point(12, 12);
             panel8.Name = "panel8";
-            panel8.Size = new Size(414, 519);
+            panel8.Size = new Size(509, 520);
             panel8.TabIndex = 9;
             panel8.Paint += panel8_Paint;
+            // 
+            // btnImagen
+            // 
+            btnImagen.Location = new Point(242, 163);
+            btnImagen.Name = "btnImagen";
+            btnImagen.Size = new Size(75, 23);
+            btnImagen.TabIndex = 48;
+            btnImagen.Text = "Seleccionar";
+            btnImagen.UseVisualStyleBackColor = true;
+            btnImagen.Click += btnImagen_Click;
+            // 
+            // txtPrInfo
+            // 
+            txtPrInfo.Location = new Point(6, 228);
+            txtPrInfo.Multiline = true;
+            txtPrInfo.Name = "txtPrInfo";
+            txtPrInfo.Size = new Size(500, 147);
+            txtPrInfo.TabIndex = 47;
+            // 
+            // pictureBox
+            // 
+            pictureBox.Location = new Point(239, 28);
+            pictureBox.Name = "pictureBox";
+            pictureBox.Size = new Size(267, 124);
+            pictureBox.TabIndex = 46;
+            pictureBox.TabStop = false;
+            pictureBox.Click += pictureBox1_Click;
+            // 
+            // cmbPubId
+            // 
+            cmbPubId.FormattingEnabled = true;
+            cmbPubId.Location = new Point(88, 68);
+            cmbPubId.Name = "cmbPubId";
+            cmbPubId.Size = new Size(121, 23);
+            cmbPubId.TabIndex = 45;
             // 
             // btnEliminar
             // 
             btnEliminar.BackColor = Color.Maroon;
             btnEliminar.ForeColor = Color.White;
-            btnEliminar.Location = new Point(49, 304);
+            btnEliminar.Location = new Point(88, 468);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(330, 23);
             btnEliminar.TabIndex = 44;
@@ -88,7 +124,7 @@
             // btnModificar
             // 
             btnModificar.Font = new Font("Segoe UI", 9F);
-            btnModificar.Location = new Point(49, 217);
+            btnModificar.Location = new Point(88, 381);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(330, 23);
             btnModificar.TabIndex = 41;
@@ -100,7 +136,7 @@
             // 
             btnGuardar.BackColor = Color.Green;
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(49, 246);
+            btnGuardar.Location = new Point(88, 410);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(330, 23);
             btnGuardar.TabIndex = 42;
@@ -108,64 +144,44 @@
             btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
             // 
-            // numMaxLvl
-            // 
-            numMaxLvl.Location = new Point(191, 176);
-            numMaxLvl.Name = "numMaxLvl";
-            numMaxLvl.Size = new Size(174, 23);
-            numMaxLvl.TabIndex = 10;
-            // 
             // btnLimpiar
             // 
             btnLimpiar.BackColor = Color.FromArgb(0, 0, 192);
             btnLimpiar.ForeColor = Color.White;
-            btnLimpiar.Location = new Point(49, 275);
+            btnLimpiar.Location = new Point(88, 439);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(330, 23);
             btnLimpiar.TabIndex = 43;
             btnLimpiar.Text = "Limpiar";
             btnLimpiar.UseVisualStyleBackColor = false;
+            btnLimpiar.Click += BtnLimpiar_Click;
             // 
-            // numMinLvl
+            // label3
             // 
-            numMinLvl.Location = new Point(191, 140);
-            numMinLvl.Name = "numMinLvl";
-            numMinLvl.Size = new Size(174, 23);
-            numMinLvl.TabIndex = 9;
+            label3.AutoSize = true;
+            label3.Location = new Point(6, 199);
+            label3.Name = "label3";
+            label3.Size = new Size(82, 15);
+            label3.TabIndex = 2;
+            label3.Text = "Publisher_info";
             // 
-            // txtJobDesc
+            // label2
             // 
-            txtJobDesc.Location = new Point(191, 111);
-            txtJobDesc.Name = "txtJobDesc";
-            txtJobDesc.Size = new Size(174, 23);
-            txtJobDesc.TabIndex = 7;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(76, 178);
-            label5.Name = "label5";
-            label5.Size = new Size(63, 15);
-            label5.TabIndex = 4;
-            label5.Text = "High Level";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(80, 142);
-            label4.Name = "label4";
-            label4.Size = new Size(77, 15);
-            label4.TabIndex = 3;
-            label4.Text = "Minimum Lvl";
+            label2.AutoSize = true;
+            label2.Location = new Point(6, 69);
+            label2.Name = "label2";
+            label2.Size = new Size(71, 15);
+            label2.TabIndex = 1;
+            label2.Text = "Publisher_Id";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(77, 114);
+            label1.Location = new Point(239, 2);
             label1.Name = "label1";
-            label1.Size = new Size(93, 15);
+            label1.Size = new Size(34, 15);
             label1.TabIndex = 0;
-            label1.Text = "Jobs Description";
+            label1.Text = "Logo";
             // 
             // panel19
             // 
@@ -176,7 +192,7 @@
             panel19.Controls.Add(label19);
             panel19.Controls.Add(txt_Buscar);
             panel19.Controls.Add(cmb_SearchBy);
-            panel19.Location = new Point(432, 3);
+            panel19.Location = new Point(527, 12);
             panel19.Name = "panel19";
             panel19.Size = new Size(494, 170);
             panel19.TabIndex = 10;
@@ -240,33 +256,32 @@
             cmb_SearchBy.Size = new Size(169, 29);
             cmb_SearchBy.TabIndex = 37;
             // 
-            // dgvJobs
+            // dgvPubInfo
             // 
-            dgvJobs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvJobs.Location = new Point(432, 179);
-            dgvJobs.Name = "dgvJobs";
-            dgvJobs.Size = new Size(494, 333);
-            dgvJobs.TabIndex = 11;
-            dgvJobs.CellClick += dgvJobs_CellClick_1;
-            dgvJobs.CellContentClick += dgvJobs_CellContentClick;
+            dgvPubInfo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPubInfo.Location = new Point(527, 199);
+            dgvPubInfo.Name = "dgvPubInfo";
+            dgvPubInfo.Size = new Size(494, 333);
+            dgvPubInfo.TabIndex = 41;
+            dgvPubInfo.CellClick += dgvPubInfo_CellClick;
             // 
-            // frmJobs
+            // frmPubInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(930, 534);
-            Controls.Add(dgvJobs);
+            ClientSize = new Size(1113, 648);
+            Controls.Add(dgvPubInfo);
             Controls.Add(panel19);
             Controls.Add(panel8);
-            Name = "frmJobs";
-            Text = "frmJobs";
+            Name = "frmPubInfo";
+            Text = "frmPubInfo";
+            Load += frmPubInfo_Load;
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numMaxLvl).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numMinLvl).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             panel19.ResumeLayout(false);
             panel19.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvJobs).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvPubInfo).EndInit();
             ResumeLayout(false);
         }
 
@@ -276,12 +291,9 @@
         private Button btnEliminar;
         private Button btnModificar;
         private Button btnGuardar;
-        private NumericUpDown numMaxLvl;
         private Button btnLimpiar;
-        private NumericUpDown numMinLvl;
-        private TextBox txtJobDesc;
-        private Label label5;
-        private Label label4;
+        private Label label3;
+        private Label label2;
         private Label label1;
         private Panel panel19;
         private Button btn_Resetear;
@@ -290,6 +302,10 @@
         private Label label19;
         private TextBox txt_Buscar;
         private ComboBox cmb_SearchBy;
-        private DataGridView dgvJobs;
+        private DataGridView dgvPubInfo;
+        private PictureBox pictureBox;
+        private ComboBox cmbPubId;
+        private TextBox txtPrInfo;
+        private Button btnImagen;
     }
 }
