@@ -279,6 +279,7 @@
             dgvTitleAuthor.Name = "dgvTitleAuthor";
             dgvTitleAuthor.Size = new Size(748, 380);
             dgvTitleAuthor.TabIndex = 7;
+            dgvTitleAuthor.CellContentClick += dgvTitleAuthor_CellContentClick;
             // 
             // frmTitle_Author
             // 

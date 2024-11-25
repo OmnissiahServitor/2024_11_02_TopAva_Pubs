@@ -180,7 +180,7 @@
             // 
             // btnAuthorEliminar
             // 
-            btnAuthorEliminar.BackColor = Color.Maroon;
+            btnAuthorEliminar.BackColor = Color.FromArgb(192, 0, 0);
             btnAuthorEliminar.ForeColor = Color.White;
             btnAuthorEliminar.Location = new Point(37, 718);
             btnAuthorEliminar.Name = "btnAuthorEliminar";
@@ -373,6 +373,7 @@
             dgvAuthors.Name = "dgvAuthors";
             dgvAuthors.Size = new Size(1180, 581);
             dgvAuthors.TabIndex = 6;
+            dgvAuthors.CellContentClick += dgvAuthors_CellContentClick;
             // 
             // frmAuthors
             // 

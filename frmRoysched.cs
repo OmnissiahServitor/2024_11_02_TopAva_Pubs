@@ -21,7 +21,7 @@ namespace _2024_11_02_TopAva_Pubs
             actualizarComboBox();
         }
 
-        
+
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
@@ -33,8 +33,8 @@ namespace _2024_11_02_TopAva_Pubs
                     "FROM roysched) " +
                     "UPDATE roysched " +
                     "SET title_id = '" + cmbTitle_ID.Text + "', " +
-                    "lorange = '" + numLowRange.Value.ToString() + "', " + 
-                    "hirange = '" + numHigh_Range.Value.ToString() + "', " + 
+                    "lorange = '" + numLowRange.Value.ToString() + "', " +
+                    "hirange = '" + numHigh_Range.Value.ToString() + "', " +
                     "royalty = '" + numRoyalty.Value.ToString() + "' " +
                     "WHERE title_id = (SELECT title_id FROM numbered_rows WHERE row_num = '" + txtRoysched_ID.Text + "')"
                     );
@@ -67,7 +67,7 @@ namespace _2024_11_02_TopAva_Pubs
                     "VALUES ('" + cmbTitle_ID.Text + "','" +
                     numLowRange.Text + "','" +
                     numHigh_Range.Text + "','" +
-                    numRoyalty.Text + 
+                    numRoyalty.Text +
                     "')");
 
                 if (j == true)
@@ -165,6 +165,27 @@ namespace _2024_11_02_TopAva_Pubs
             ds = dt.consulta("SELECT title_id FROM titles");
             cmbTitle_ID.DataSource = ds.Tables[0];
             cmbTitle_ID.DisplayMember = "title_id";
+        }
+
+        private void dgvRoysched_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                // Obtener la fila seleccionada
+                DataGridViewRow selectedRow = dgvRoysched.Rows[e.RowIndex];
+
+
+
+                // Extraer los valores de las celdas y asignarlos a los controles del formulario
+
+                txtRoysched_ID.Text = selectedRow.Cells[0].Value.ToString();
+                cmbTitle_ID.Text = selectedRow.Cells[1].Value.ToString();
+                numLowRange.Value = int.Parse(selectedRow.Cells[2].Value.ToString());
+                numHigh_Range.Value = int.Parse(selectedRow.Cells[3].Value.ToString());
+                numRoyalty.Value = int.Parse(selectedRow.Cells[4].Value.ToString());
+
+                
+            }
         }
     } // end class
 } // end namespace

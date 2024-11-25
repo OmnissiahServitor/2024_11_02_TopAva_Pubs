@@ -290,7 +290,11 @@
             dgvDiscounts.Name = "dgvDiscounts";
             dgvDiscounts.Size = new Size(494, 333);
             dgvDiscounts.TabIndex = 7;
+// <<<<<<< Angel
             dgvDiscounts.CellClick += dgvDiscounts_CellClick;
+// =======
+//             dgvDiscounts.CellContentClick += dgvDiscounts_CellContentClick;
+// >>>>>>> master
             // 
             // frmDiscounts
             // 

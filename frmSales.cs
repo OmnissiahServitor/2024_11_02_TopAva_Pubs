@@ -18,7 +18,6 @@ namespace _2024_11_02_TopAva_Pubs
         {
             InitializeComponent();
 
-
             actualizarTabla();
             actualizarComboBox();
         }
@@ -140,7 +139,7 @@ namespace _2024_11_02_TopAva_Pubs
         {
             Datos dt = new Datos();
 
-            ds = dt.consulta("SELECT stor_id AS 'Stores ID', ord_num AS 'Order Number', ord_date AS 'Orders Date', qty AS 'Quantity', payments  AS 'Payments', title_id AS 'Titles ID' " +
+            ds = dt.consulta("SELECT stor_id AS 'Stores ID', ord_num AS 'Order Number', ord_date AS 'Orders Date', qty AS 'Quantity', payterms  AS 'Payterms', title_id AS 'Titles ID' " +
                 " FROM sales ");
 
             if (ds != null)
@@ -160,11 +159,11 @@ namespace _2024_11_02_TopAva_Pubs
 
             ds = dt.consulta("SELECT stor_id FROM stores");
             cmbStores_ID.DataSource = ds.Tables[0];
-            cmbStores_ID.DisplayMember = "COLUMN_NAME";
+            cmbStores_ID.DisplayMember = "stor_id";
 
             ds = dt.consulta("SELECT title_id FROM titles");
             cmbTitle_ID.DataSource = ds.Tables[0];
-            cmbTitle_ID.DisplayMember = "COLUMN_NAME";
+            cmbTitle_ID.DisplayMember = "title_id";
         } 
     } // end class
 } // end namespace

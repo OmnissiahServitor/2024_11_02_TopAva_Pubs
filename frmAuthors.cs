@@ -163,5 +163,22 @@ namespace _2024_11_02_TopAva_Pubs
             } // end if ds!=null
         } // end actualizarTabla()
 
+        private void dgvAuthors_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dgvAuthors.Rows[e.RowIndex];
+
+                mskAuthorID.Text = selectedRow.Cells[0].Value.ToString() ;
+                txtLastName.Text = selectedRow.Cells[1].Value.ToString() ;
+                txtFirstName.Text = selectedRow.Cells[2].Value.ToString() ;
+                mskPhone.Text = selectedRow.Cells[3].Value.ToString() ;
+                txtAddress.Text = selectedRow.Cells[4].Value.ToString() ;
+                txtCity.Text = selectedRow.Cells[5].Value.ToString() ;
+                mskState.Text = selectedRow.Cells[6].Value?.ToString() ;
+                mskZip.Text = selectedRow.Cells[7].Value?.ToString() ;
+                chkAuthorContract.Checked = bool.Parse(selectedRow.Cells[8].Value.ToString() );
+            }
+        }
     } // end frmAuthors
 } // end namespace

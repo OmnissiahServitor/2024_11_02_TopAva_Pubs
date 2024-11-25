@@ -321,6 +321,7 @@
             dgvStores.Name = "dgvStores";
             dgvStores.Size = new Size(825, 378);
             dgvStores.TabIndex = 7;
+            dgvStores.CellContentClick += dgvStores_CellContentClick;
             // 
             // frmStores
             // 

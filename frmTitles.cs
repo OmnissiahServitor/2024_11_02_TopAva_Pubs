@@ -31,7 +31,7 @@ namespace _2024_11_02_TopAva_Pubs
             cmbTitles_publisherID.DataSource = ds.Tables[0];
             cmbTitles_publisherID.DisplayMember = "pub_id";
         }
-            
+
 
         private void btnTitles_Modificar_Click(object sender, EventArgs e)
         {
@@ -170,5 +170,26 @@ namespace _2024_11_02_TopAva_Pubs
                 dgvTitles.DataSource = ds.Tables[0];
             } // end if ds!=null
         } // end actualizarTabla()
+
+        private void dgvTitles_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dgvTitles.Rows[e.RowIndex];
+
+                
+                mskTitle_ID.Text = selectedRow.Cells[0].Value.ToString();
+                txtTitle_name.Text = selectedRow.Cells[1].Value.ToString();
+                txtTitle_Type.Text = selectedRow.Cells[2].Value.ToString();
+                cmbTitles_publisherID.Text = selectedRow.Cells[3].Value.ToString();
+                txtTitle_Price.Text = selectedRow.Cells[4].Value.ToString();
+
+                txtTitle_Advance.Text = selectedRow.Cells[5].Value.ToString();
+                txtTitle_Royalty.Text = selectedRow.Cells[6].Value.ToString();
+                txtTitle_Sales.Text = selectedRow.Cells[7].Value.ToString();
+                rtxtTitles_Notes.Text = selectedRow.Cells[8].Value.ToString();
+                dtpTitles_Date.Text = selectedRow.Cells[9].Value.ToString();
+            }
+        }
     }
 }
